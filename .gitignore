@@ -1,0 +1,9 @@
+.idea/
+.npm/
+node_modules/
+public/vendor/
+public/profile/
+public/audio/
+out/
+config.json
+.DS_Store*

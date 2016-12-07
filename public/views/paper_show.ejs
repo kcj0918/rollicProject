@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge" />
+
+    <title><%= targetUserName %>'s birthday</title>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/assets/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="icon shortcut" href="/assets/favicon/favicon.ico">
+    <link rel="manifest" href="/assets/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" type="text/css" href="/styles/common.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/paper.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/header.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/base.css" />
+</head>
+<body>
+<div id="wrap">
+    <div class="Header">
+        <a href="/" class="Header__logo">
+            <img src="/assets/images/logo.png" />
+        </a>
+
+        <div class="Header__group">
+            <a href="/user/<%= userId %>">축하목록</a>
+            <a href="/logout">로그아웃</a>
+        </div>
+    </div>
+
+    <div class="Paper">
+        <div class="Paper__container">
+            <div class="ConguratePerson">
+                <img src="/assets/images/cong.png" />
+                <div class="ConguratePerson__img">
+                    <img src="<%= profilePath %>" />
+                </div>
+            </div>
+
+            <span class="PaperEdit__title"><%= words %></span>
+
+            <span class="PaperEdit__help" style="text-align: center;">
+                    세상에! <%= texts.length %>명의 친구들이 축하해주었어요!
+                </span>
+
+            <div class="FriendsText">
+                <div class="FriendsText__inner">
+                    <%
+                        var colors = ['#fdadad', '#a5d4ff', '#d1ecb3', '#dadada'];
+                        var images = [
+                            '../assets/images/sounds/pink.png',
+                            '../assets/images/sounds/blue.png',
+                            '../assets/images/sounds/green.png',
+                            '../assets/images/sounds/gray.png'
+                        ]
+
+                        for (var idx = 0; idx < texts.length; idx++) { %>
+                            <div class="FriendsText__item" style="background-color: <%= colors[parseInt(idx % 4, 10)] %>;">
+                                <% if (texts[idx].audio !== 'none') { %>
+                                <div class="AudioPlayer">
+                                    <img src="<%= images[parseInt(idx % 4, 10)] %>" />
+                                    <audio controls="controls" style="opacity: 0;">
+                                        <source src="../<%= texts[idx].audio %>" type="audio/wav" />
+                                    </audio>
+                                </div>
+                                <% } %>
+
+                                <span><%= texts[idx].text %> -<%= texts[idx].username %>-</span>
+                            </div>
+
+                        <% if (idx !== texts.length - 1) { %>
+                            <span class="FriendsText__br">/</span>
+                        <% } %>
+                    <% } %>
+                </div>
+            </div>
+
+            <div class="ShareBtns">
+                <button id="print" class="SendButton" onclick="window.print();">PRINT</button>
+                <button id="share_fb" class="FacebookShareButton">
+                    <img src="/assets/images/facebook.png" />
+                    <span>공유하기</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/vendor/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.FriendsText__item').on('click', function () {
+            if ($(this).find('audio')[0]) {
+                $(this).find('audio').trigger('play');
+            }
+        });
+
+        $('#share_fb').on('click', function () {
+            location.href = 'http://www.facebook.com/sharer/sharer.php?u=<%= shareUrl %>';
+        });
+    });
+</script>
+</body>
+</html>

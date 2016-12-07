@@ -1,0 +1,338 @@
+.PaperEdit {
+    flex: 1;
+    display: flex;
+
+    overflow-y: scroll;
+
+    justify-content: center;
+
+    background-color: #40aed6;
+}
+
+.Paper {
+    flex: 1;
+    display: flex;
+
+    overflow-y: scroll;
+
+    justify-content: center;
+
+    background-color: #40aed6;
+}
+
+.PaperEdit__container {
+    display: flex;
+    flex-direction: column;
+
+    padding: 32px 16px;
+
+    width: 100%;
+    max-width: 480px;
+}
+
+.Paper__container {
+    display: flex;
+    flex-direction: column;
+
+    padding: 32px 16px;
+
+    width: 100%;
+    max-width: 1024px;
+}
+
+.PaperEdit__title {
+    display: block;
+
+    width: 100%;
+    max-width: 480px;
+
+    margin: 0 auto 28px auto;
+
+    font-size: 27px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #ffffff;
+    text-align: center;
+}
+
+.PaperEdit__title > span {
+    text-decoration: underline;
+}
+
+.PaperEdit__help {
+    display: block;
+
+    width: 100%;
+    max-width: 480px;
+
+    margin: 0 auto;
+
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.2;
+    color: #ffffff;
+    text-align: left;
+}
+
+.PaperEdit__inputGroups {
+    margin: 32px 0 64px 0;
+}
+
+.ConguratePerson {
+    position: relative;
+    display: block;
+
+    margin-bottom: 64px;
+}
+
+.ConguratePerson__imgOverlay {
+    position: absolute;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    left: -3px;
+    top: -3px;
+
+    width: 150px;
+    height: 150px;
+
+    border-radius: 75px;
+
+    border: 3px solid #ffffff;
+
+    z-index: 50;
+
+    background-color: #E5E5E5;
+}
+
+.ConguratePerson__imgOverlay > input {
+    width: 0;
+}
+
+.ConguratePerson__imgOverlay > label {
+    width: 100%;
+    height: 100%;
+}
+
+.ConguratePerson__imgOverlay > label > img {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+}
+
+.ConguratePerson__img {
+    position: relative;
+    display: flex;
+
+    margin: 0 auto;
+
+    width: 150px;
+    height: 150px;
+
+    border-radius: 75px;
+    border: 3px solid #ffffff;
+
+    z-index: 100;
+}
+
+.ConguratePerson__img > img {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 75px;
+
+    overflow: hidden;
+
+    z-index: 50;
+}
+
+.ConguratePerson > img {
+    position: relative;
+    display: block;
+
+    margin: 0 auto;
+
+    width: 90px;
+    height: auto;
+
+    bottom: -17px;
+
+    z-index: 200;
+}
+
+.FriendsText {
+    display: block;
+
+    margin: 32px auto 64px auto;
+    height: 400px;
+
+    width: 100%;
+    max-width: 1024px;
+
+    background-color: #ffffff;
+}
+
+.FriendsText__inner {
+
+    width: 100%;
+    height: 100%;
+
+    padding: 44px 52px;
+}
+
+.FriendsText__item {
+    display: inline-block;
+    position: relative;
+
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 40px;
+    color: #4a4a4a;
+
+    margin-bottom: 20px;
+    padding: 0 9px;
+}
+
+.FriendsText__item > span {
+    display: inline-block;
+
+    word-break: break-all;
+}
+
+.FriendsText__br {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0 6px;
+}
+
+.PaperMenu {
+    flex: 1;
+    display: flex;
+
+    overflow-y: scroll;
+
+    width: 100%;
+}
+
+.PaperMenu__inner {
+    flex: 1;
+    display: flex;
+
+    justify-content: center;
+    flex-wrap: wrap;
+
+    margin: 0 auto;
+    padding: 64px 0;
+
+    max-width: 1024px;
+}
+
+.PaperMenu__addPaper {
+    display: block;
+
+    width: 225px;
+    height: 225px;
+
+    margin: 32px;
+
+    cursor: pointer;
+}
+
+.PaperMenu__addPaper:hover {
+    opacity: .75;
+}
+
+.PaperMenu__addPaper > img {
+    width: 100%;
+    height: 100%;
+}
+
+.PaperMenuItem {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    margin: 32px;
+}
+
+.PaperMenuItem__img {
+    display: block;
+
+    width: 225px;
+    height: 225px;
+
+    border-radius: 150px;
+    border: 4px solid #ffffff;
+}
+
+.PaperMenuItem__img > img {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+}
+
+.PaperMenuItem__desc {
+    display: block;
+
+    padding-top: 30px;
+}
+
+.PaperMenuItem__desc > a {
+    display: block;
+
+    font-size: 30px;
+    font-weight: 500;
+    color: #ffffff;
+    text-align: center;
+
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+.PaperMenuItem__desc > a:hover {
+    opacity: .75;
+}
+
+.PaperMenuItem__desc > span {
+    display: block;
+    margin-top: 12px;
+
+    font-size: 22px;
+    font-weight: 400;
+    color: #ffffff;
+    text-align: center;
+}
+
+.AudioPlayer {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+
+    vertical-align: top;
+
+    z-index: 500;
+    cursor: pointer;
+}
+
+.AudioPlayer > img {
+    width: 100%;
+    height: 100%;
+}
+
+.AudioPlayer > audio {
+    display: block;
+
+    opacity: 0;
+
+    width: 0px;
+    height: 0;
+}

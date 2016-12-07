@@ -1,0 +1,181 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+html, body {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #000000;
+
+    background-color: #ffffff;
+}
+
+#wrap {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: #40aed6;
+}
+
+#completeModal {
+    position: fixed;
+    display: none;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 1000;
+}
+
+#completeModal.show {
+    display: block;
+}
+
+#completeModal > .overlay {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: #000000;
+    opacity: .65;
+
+    z-index: 1500;
+}
+
+#completeModal > div.inner {
+    position: relative;
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px 32px;
+
+    width: 480px;
+    height: 270px;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate3d(-50%, -50%, 0);
+
+    background-color: #ffffff;
+
+    border-radius: 3px;
+
+    opacity: 1;
+    z-index: 2000;
+}
+
+#completeModal > div.inner > span {
+    display: block;
+
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 35px;
+    text-align: center;
+}
+
+#completeModal > div.inner > a {
+    flex: 1;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 20px;
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #ff7d7d;
+    text-align: center;
+
+    text-decoration: none;
+}
+
+#completeModal > div.inner > a:hover {
+    opacity: .75;
+}
+
+@media (max-width: 600px) {
+    #completeModal > div.inner {
+        width: 300px;
+        height: 240px;
+    }
+}
+
+.ShareBtns {
+    display: block;
+
+    width: 100%;
+    height: 80px;
+
+    margin-bottom: 64px;
+
+    text-align: center;
+}
+
+.ShareBtns > button {
+    margin-top: 0;
+    display: inline-block;
+
+    margin: 0 19px;
+
+}
+
+.FacebookShareButton {
+    vertical-align: top;
+
+    font-size: 22px;
+    font-weight: 500;
+    color: #ffffff;
+
+    width: 220px;
+    height: 60px;
+
+    border: 0;
+    outline: 0;
+    background-color: #39579a;
+
+    cursor: pointer;
+}
+
+.FacebookShareButton:hover {
+    opacity: .75;
+}
+
+.FacebookShareButton > img {
+    display: inline-block;
+    width: 60px;
+    height: auto;
+
+}
+
+.FacebookShareButton > span {
+    display: inline-block;
+    line-height: 60px;
+
+    vertical-align: top;
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge" />
+
+    <title><%= targetUserName %>의 생일페이퍼</title>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/assets/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="icon shortcut" href="/assets/favicon/favicon.ico">
+    <link rel="manifest" href="/assets/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" type="text/css" href="/styles/common.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/paper.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/base.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/header.css" />
+</head>
+<body>
+    <div id="wrap">
+        <div class="Header">
+            <a href="/" class="Header__logo">
+                <img src="/assets/images/logo.png" />
+            </a>
+
+            <div class="Header__group">
+                <a href="/user/<%= userId %>">축하목록</a>
+                <a href="/logout">로그아웃</a>
+            </div>
+        </div>
+
+        <div class="PaperEdit">
+            <div class="PaperEdit__container">
+                <div class="ConguratePerson">
+                    <img src="/assets/images/cong.png" />
+                    <div class="ConguratePerson__img">
+                        <img src="<%= profilePath %>" />
+                    </div>
+                </div>
+
+                <span class="PaperEdit__title"><%= words %></span>
+
+                <span class="PaperEdit__help">
+                    ※ <%= birthday %>까지 입력이 가능합니다. <br />
+                    글과 목소리로 진심이 담긴 축하 메세지를 남겨주세요~!
+                </span>
+
+                <div class="PaperEdit__inputGroups">
+                    <div class="Input">
+                        <label>작성자 이름 :</label>
+                        <input id="userName" type="text" maxlength="50" />
+                    </div>
+
+                    <div class="Textarea">
+                        <label>1. 축하 메세지를 작성해주세요. <b>(0/120)</b></label>
+                        <textarea id="text" maxlength="120"></textarea>
+                    </div>
+
+                    <div class="Input">
+                        <label>2. 축하 메세지를 녹음해주세요. <b>(최대 30초)</b></label>
+                    </div>
+
+                    <button id="voice">
+                        <img class="voice" src="/assets/images/voice.png" />
+                        <img class="voice_recording hide" src="/assets/images/voice_recording.png" />
+                    </button>
+
+                    <button id="submit" class="SendButton">작성하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/vendor/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/vendor/msr/MediaStreamRecorder.min.js"></script>
+    <script type="text/javascript">
+        navigator.getUserMedia = navigator.getUserMedia ||
+                navigator.webkitGetUserMedia ||
+                navigator.mozGetUserMedia;
+
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+
+        $(function () {
+            var parts = location.href.split('/');
+            var paperId = parts[parts.length - 1];
+
+            var isRecording = false;
+
+            var $userName = $('#userName');
+            var $text = $('#text');
+            var $voice =$('#voice');
+
+            var mediaRecorder;
+            var blobData;
+
+            $text.on('change keyup', function () {
+                var length = $text.val().length;
+                $('.Textarea').find('label > b').text('(' + length + '/120)');
+            });
+
+            $voice.on('click tap', function () {
+                if (!isRecording) {
+                    isRecording = true;
+
+                    $voice.find('.voice').addClass('hide');
+                    $voice.find('.voice_recording').removeClass('hide');
+
+                    navigator.getUserMedia({ audio: true }, function (stream) {
+                        mediaRecorder = new MediaStreamRecorder(stream);
+                        mediaRecorder.mimeType = 'audio/wav';
+                        mediaRecorder.ondataavailable = function (blob) {
+                            blobData = blob;
+                        };
+                        mediaRecorder.start(30000);
+                    }, function (error) {
+                        alert(error);
+                    });
+                } else {
+                    $voice.find('.voice').removeClass('hide');
+                    $voice.find('.voice_recording').addClass('hide');
+
+                    mediaRecorder.stop();
+                }
+            });
+
+            $('#submit').on('click tap', function () {
+                var fd = new FormData();
+
+                fd.append('audio', blobData, 'audio');
+                fd.append('userName', $userName.val());
+                fd.append('text', $text.val());
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/paper/' + paperId,
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    success: function () {
+                        location.reload();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

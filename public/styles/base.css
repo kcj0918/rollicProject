@@ -1,0 +1,147 @@
+.Input {
+    display: flex;
+
+    padding: 0 16px;
+    margin-bottom: 32px;
+
+    width: 100%;
+    height: 60px;
+
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 60px;
+    color: #4D4D4D;
+
+    background-color: #ffffff;
+}
+
+.Input > label {
+    flex: none;
+    font-weight: 700;
+    margin-right: 12px;
+}
+
+.Input > label > b {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 25px;
+    color: #bbb;
+}
+
+.Input > input {
+    flex: 1;
+
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 60px;
+    color: #bbb;
+
+    border: 0;
+    outline: 0;
+    background: transparent;
+}
+
+.Textarea {
+    display: flex;
+    flex-direction: column;
+
+    padding: 0 16px 16px 16px;
+    margin-bottom: 32px;
+
+    width: 100%;
+    height: 220px;
+
+    background-color: #FFFFFF;
+}
+
+.Textarea > label {
+    display: block;
+
+    padding: 14px 0;
+
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 25px;
+    color: #4D4D4D;
+}
+
+.Textarea > label > b {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 25px;
+    color: #bbb;
+}
+
+.Textarea > textarea {
+    flex: 1;
+
+    padding: 16px;
+
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: #bbb;
+
+    resize: none;
+    outline: 0;
+    border: 0;
+
+    background-color: #e1e1e1;
+}
+
+.SendButton {
+    display: block;
+
+    width: 250px;
+    height: 60px;
+
+    margin: 64px auto 0 auto;
+
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 60px;
+    color: #ffffff;
+    text-align: center;
+
+    cursor: pointer;
+
+    background-color: #ff7d7d;
+    outline: 0;
+    border: 0;
+}
+
+.SendButton:hover {
+    opacity: .75;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+#voice {
+    display: block;
+
+    margin: 0 auto;
+
+    width: 95px;
+    height: 95px;
+
+    background: transparent;
+    border: 0;
+    outline: 0;
+
+    cursor: pointer;
+}
+
+#voice > img {
+    width: 100%;
+    height: 100%;
+}
+
+#voice:hover {
+    opacity: .75;
+}

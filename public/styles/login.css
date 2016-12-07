@@ -1,0 +1,88 @@
+#login {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    background-image: url('../assets/images/background.png');
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: 10%;
+}
+
+#loginModal {
+    position: fixed;
+    display: block;
+
+    padding: 35px;
+
+    left: 50%;
+    top: 50%;
+
+    width: 480px;
+    height: 275px;
+
+    transform: translate3d(-50%, -50%, 0);
+    background-color: #ffffff;
+}
+
+@media (max-width: 600px) {
+    #loginModal {
+        width: 320px;
+        height: 240px;
+    }
+}
+
+.LoginMessage {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: #323232;
+    text-align: center;
+
+    width: 100%;
+    height: 115px;
+
+    background-image: url('../assets/images/login.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.LoginButton {
+    display: block;
+
+    margin-top: 32px;
+
+    width: 100%;
+    height: 58px;
+
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 58px;
+    color: #ffffff;
+
+    background-color: #39579a;
+    border: 0;
+    outline: 0;
+
+    cursor: pointer;
+}
+
+.LoginButton:hover {
+    opacity: .75;
+}
+
+.LoginButton > span {
+    vertical-align: top;
+}
+
+.LoginButton > img {
+    width: 52px;
+    vertical-align: middle;
+
+}

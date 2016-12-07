@@ -1,0 +1,22 @@
+{
+  "name": "bp",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Seokju Na <seokmaTD@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./public/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1.11.3",
+    "msr": "^1.3.4"
+  }
+}

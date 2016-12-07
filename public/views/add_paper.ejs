@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge" />
+
+    <title>생일 페이퍼 만들기</title>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/assets/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="icon shortcut" href="/assets/favicon/favicon.ico">
+    <link rel="manifest" href="/assets/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" type="text/css" href="/styles/common.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/paper.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/base.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/header.css" />
+</head>
+<body>
+    <form id="completeModal">
+        <div class="inner">
+            <span>URL이 생성되었습니다!<br />친구에게 축하의 말을 전달해주세요~!</span>
+            <a></a>
+        </div>
+        <div class="overlay"></div>
+    </form>
+
+    <div id="wrap">
+        <div class="Header">
+            <a href="/" class="Header__logo">
+                <img src="/assets/images/logo.png" />
+            </a>
+
+            <div class="Header__group">
+                <a href="/user/<%= userId %>">축하목록</a>
+                <a href="/logout">로그아웃</a>
+            </div>
+        </div>
+
+        <div class="PaperEdit">
+            <div class="PaperEdit__container">
+                <div class="ConguratePerson">
+                    <img src="/assets/images/cong.png" />
+                    <div class="ConguratePerson__img">
+                        <div id="upload_image_overlay" class="ConguratePerson__imgOverlay">
+                            <input id="profile" type="file" accept="image/*" style="opacity: 0;"/>
+                            <label for="profile">
+                                <img src="/assets/images/person.png" />
+                            </label>
+                        </div>
+                        <img id="upload_image" src="" class="hide"/>
+                    </div>
+                </div>
+
+                <div class="PaperEdit__inputGroups">
+                    <div class="Input">
+                        <label>이름 :</label>
+                        <input id="name" type="text" maxlength="30" />
+                    </div>
+
+                    <div class="Textarea">
+                        <label>생일 페이퍼 제목을 입력해주세요</label>
+                        <textarea id="words" type="text" maxlength="120"></textarea>
+                    </div>
+
+                    <div class="Input">
+                        <label>받는 분 이메일 :</label>
+                        <input id="email" type="text" maxlength="50" />
+                    </div>
+
+                    <div class="Input">
+                        <label>생일 :</label>
+                        <input id="date" type="date" />
+                    </div>
+
+                    <button id="submit"
+                            class="SendButton">롤링 페이퍼 생성하기</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="/vendor/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(function () {
+            var $name = $('#name');
+            var $words = $('#words');
+            var $email = $('#email');
+            var $date = $('#date');
+            var $profile = $('#profile');
+            var $modal = $('#completeModal');
+            var $uploadImage = $('#upload_image');
+            var $uploadImageOverlay = $('#upload_image_overlay');
+            var profileImage = null;
+
+            modifyProfileOverlay();
+            listenProfileChange();
+
+            function listenProfileChange() {
+                var reader = new FileReader;
+
+                $profile.on('change', function () {
+                    profileImage = document.getElementById('profile').files[0];
+
+                    if (profileImage) {
+                        reader.readAsDataURL(profileImage);
+                    }
+
+                    modifyProfileOverlay();
+                });
+
+                reader.addEventListener('load', function () {
+                    $uploadImage.attr('src', reader.result);
+                }, false);
+            }
+
+            function modifyProfileOverlay() {
+                if (profileImage === null) {
+                    $uploadImage.addClass('hide');
+                    $uploadImageOverlay.removeClass('hide');
+                } else {
+                    $uploadImage.removeClass('hide');
+                    $uploadImageOverlay.addClass('hide');
+                }
+            }
+
+            $('#submit').on('click tap', function (e) {
+                e.preventDefault();
+
+                var fd = new FormData();
+                fd.append('name', $name.val());
+                fd.append('words', $words.val());
+                fd.append('email', $email.val());
+                fd.append('date', $date.val());
+                fd.append('profile', profileImage, profileImage.name);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/paper',
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    success: function (res) {
+                        $('#submit').attr('disabled');
+                        $('#completeModal').addClass('show');
+
+                        $modal.find('a').attr('href', res.url);
+                        $modal.find('a').html('http://localhost:8080' + res.url);
+                    },
+                    error: function (e) {
+                        alert(e);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
